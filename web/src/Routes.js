@@ -8,9 +8,23 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Router, Route, Set } from '@redwoodjs/router'
+import BrandLayout from 'src/layouts/BrandLayout'
 import AppLayout from 'src/layouts/AppLayout'
 
-export const AppRoutes = () => {
+function BrandRoutes() {
+  return (
+    <Router>
+      <Set wrap={BrandLayout}>
+        <Route path="/foo" page={BrandFooPage} name="foo" />
+        <Route path="/hello" page={BrandHelloPage} name="hello" />
+        <Route path="/" page={BrandBrandHomePage} name="brandHome" />
+      </Set>
+      <Route notfound page={AppNotFoundPage} />
+    </Router>
+  )
+}
+
+function AppRoutes() {
   return (
     <Router>
       <Set wrap={AppLayout}>
@@ -22,4 +36,8 @@ export const AppRoutes = () => {
   )
 }
 
-export default AppRoutes
+export default function Routes() {
+  const { hostname } = window.location
+  const isApp = hostname === 'app.localhost'
+  return isApp ? <AppRoutes /> : <BrandRoutes />
+}
