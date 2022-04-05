@@ -1,7 +1,7 @@
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 
-export default function() {
+export default function BarPage() {
   return (
     <>
       <MetaTags title="Bar" description="Bar page" />
